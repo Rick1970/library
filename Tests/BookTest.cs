@@ -21,6 +21,13 @@ namespace Library
       Assert.Equal(0,result);
     }
 
+    [Fact]
+    public void T2_Equal_ReturnsTrueIfTitlesAreTheSame()
+    {
+      Book firstBook = new Book("Harry Potter and the Deathly Hallows");
+      Book secondBook = new Book("Harry Potter and the Deathly Hallows");
+      Assert.Equal(firstBook, secondBook);
+    }
 
     public void Dispose()
     {
