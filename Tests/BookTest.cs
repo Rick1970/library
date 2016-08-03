@@ -33,5 +33,16 @@ namespace Library
     {
       Book.DeleteAll();
     }
+    [Fact]
+   public void T3_Save_SavesToDatabase()
+   {
+
+     Book testBook = new Book("Harry Potter and the Deathly Hallows");
+     testBook.Save();
+     List<Book> result =Book.GetAll();
+     List<Book> testList = new List<Book>{testBook};
+
+     Assert.Equal(testList, result);
+   }
   }
 }
