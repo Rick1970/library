@@ -103,44 +103,41 @@ namespace Library
       }
     }
     //
-    // public static Client Find(int id)
-    // {
-    //   SqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //
-    //   SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @ClientId;", conn);
-    //   SqlParameter clientIdParameter = new SqlParameter();
-    //   clientIdParameter.ParameterName = "@ClientId";
-    //   clientIdParameter.Value = id.ToString();
-    //
-    //   cmd.Parameters.Add(clientIdParameter);
-    //
-    //   SqlDataReader rdr = cmd.ExecuteReader();
-    //
-    //   int foundClientId = 0;
-    //   string foundClientFirstName = null;
-    //   string foundClientLastName = null;
-    //   int foundClientStylistId = 0;
-    //
-    //   while (rdr.Read())
-    //   {
-    //     foundClientId = rdr.GetInt32(0);
-    //     foundClientFirstName = rdr.GetString(1);
-    //     foundClientLastName = rdr.GetString(2);
-    //     foundClientStylistId = rdr.GetInt32(3);
-    //   }
-    //   Client foundClient = new Client(foundClientFirstName, foundClientLastName, foundClientStylistId, foundClientId);
-    //
-    //   if (rdr != null)
-    //   {
-    //     rdr.Close();
-    //   }
-    //   if (conn != null)
-    //   {
-    //     conn.Close();
-    //   }
-    //   return foundClient;
-    // }
+    public static Author Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM authors WHERE id = @AuthorId;", conn);
+      SqlParameter authorIdParameter = new SqlParameter();
+      authorIdParameter.ParameterName = "@AuthorId";
+      authorIdParameter.Value = id.ToString();
+
+      cmd.Parameters.Add(authorIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int foundAuthorId = 0;
+      string foundAuthorName = null;
+
+      while (rdr.Read())
+      {
+        foundAuthorId = rdr.GetInt32(0);
+        foundAuthorName = rdr.GetString(1);
+      }
+      Author foundAuthor = new Author(foundAuthorName, foundAuthorId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return foundAuthor;
+    }
+
     // public void Update(string newFirst, string newLast, int newStylistId)
     // {
     //   SqlConnection conn = DB.Connection();

@@ -15,7 +15,7 @@ namespace Library
     public void Dispose()
     {
       Author.DeleteAll();
-      //WILL ALSO NEED BOOK.DELETE()
+      Book.DeleteAll();
     }
 
     [Fact]
@@ -46,44 +46,31 @@ namespace Library
 
       Assert.Equal(testList, result);
     }
-    //
-    // [Fact]
-    // public void T4_1_Save_AssignsIdToStylist()
-    // {
-    //   Stylist testStylist = new Stylist("Clementine", "Clips", "L.4 Specialist");
-    //   testStylist.Save();
-    //
-    //   Stylist savedStylist = Stylist.GetAll()[0];
-    //   int result = savedStylist.GetId();
-    //   int testId = testStylist.GetId();
-    //
-    //   Assert.Equal(testId, result);
-    // }
-    //
-    // [Fact]
-    // //Additional test for GetId as it was built and passed the test from the outset
-    // public void T4_2_Save_AssignsIdToStylist()
-    // {
-    //   Stylist testStylist = new Stylist("Clementine", "Clips", "L.4 Specialist");
-    //   testStylist.Save();
-    //
-    //   Stylist savedStylist = Stylist.GetAll()[0];
-    //   int result = savedStylist.GetId();
-    //
-    //   Assert.Equal(true, (result > 0));
-    // }
-    //
-    // [Fact]
-    // public void T5_Find_FindsStylistInDB()
-    // {
-    //   Stylist testStylist = new Stylist("Clementine", "Clips", "L.4 Specialist");
-    //   testStylist.Save();
-    //
-    //   Stylist foundStylist = Stylist.Find(testStylist.GetId());
-    //
-    //   Assert.Equal(testStylist, foundStylist);
-    // }
-    //
+
+    [Fact]
+    public void T4_Save_AssignsIdToAuthor()
+    {
+      Author testAuthor = new Author("Rowling");
+      testAuthor.Save();
+
+      Author savedAuthor = Author.GetAll()[0];
+      int result = savedAuthor.GetId();
+      int testId = testAuthor.GetId();
+
+      Assert.Equal(testId, result);
+    }
+
+    [Fact]
+    public void T5_Find_FindsAuthorInDatabase()
+    {
+      Author testAuthor = new Author("Rowling");
+      testAuthor.Save();
+
+      Author foundAuthor = Author.Find(testAuthor.GetId());
+
+      Assert.Equal(testAuthor, foundAuthor);
+    }
+
     // [Fact]
     // public void T6_Update_UpdatesStylistInDB()
     // {
