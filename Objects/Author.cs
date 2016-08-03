@@ -138,54 +138,43 @@ namespace Library
       return foundAuthor;
     }
 
-    // public void Update(string newFirst, string newLast, int newStylistId)
-    // {
-    //   SqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //
-    //   //Discovered how to output all (*) will allow you to select which column by index in Reader below
-    //   SqlCommand cmd = new SqlCommand("UPDATE clients SET first_name = @NewFirst, last_name = @NewLast, stylist_id = @NewStylistId OUTPUT INSERTED.* WHERE id = @ClientId;", conn);
-    //
-    //   SqlParameter newFirstParameter = new SqlParameter();
-    //   newFirstParameter.ParameterName = "@NewFirst";
-    //   newFirstParameter.Value = newFirst;
-    //
-    //   SqlParameter newLastParameter = new SqlParameter();
-    //   newLastParameter.ParameterName = "@NewLast";
-    //   newLastParameter.Value = newLast;
-    //
-    //   SqlParameter newStylistIdParameter = new SqlParameter();
-    //   newStylistIdParameter.ParameterName = "@NewStylistId";
-    //   newStylistIdParameter.Value = newStylistId;
-    //
-    //   SqlParameter clientIdParameter = new SqlParameter();
-    //   clientIdParameter.ParameterName = "@ClientId";
-    //   clientIdParameter.Value = this.GetId();
-    //
-    //   cmd.Parameters.Add(newFirstParameter);
-    //   cmd.Parameters.Add(newLastParameter);
-    //   cmd.Parameters.Add(newStylistIdParameter);
-    //   cmd.Parameters.Add(clientIdParameter);
-    //
-    //   SqlDataReader rdr = cmd.ExecuteReader();
-    //
-    //   while (rdr.Read())
-    //   {
-    //     this._name = rdr.GetString(1);
-    //     this._lastName = rdr.GetString(2);
-    //     this._stylistId = rdr.GetInt32(3);
-    //   }
-    //
-    //   if (rdr != null)
-    //   {
-    //     rdr.Close();
-    //   }
-    //   if (conn != null)
-    //   {
-    //     conn.Close();
-    //   }
-    // }
-    //
+    public void Update(string newName)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+
+      SqlCommand cmd = new SqlCommand("UPDATE authors SET name = @NewName OUTPUT INSERTED.name WHERE id = @AuthorId;", conn);
+
+      SqlParameter newNameParameter = new SqlParameter();
+      newNameParameter.ParameterName = "@NewName";
+      newNameParameter.Value = newName;
+
+      SqlParameter authorIdParameter = new SqlParameter();
+      authorIdParameter.ParameterName = "@AuthorId";
+      authorIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(newNameParameter);
+      cmd.Parameters.Add(authorIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        this._name = rdr.GetString(0);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+
     // public void Delete()
     // {
     //   SqlConnection conn = DB.Connection();

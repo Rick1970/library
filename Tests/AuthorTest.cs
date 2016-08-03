@@ -71,21 +71,20 @@ namespace Library
       Assert.Equal(testAuthor, foundAuthor);
     }
 
-    // [Fact]
-    // public void T6_Update_UpdatesStylistInDB()
-    // {
-    //   Stylist testStylist = new Stylist("Jake", "Shears", "L.5 Master");
-    //   testStylist.Save();
-    //
-    //   string newExpertise = "Lvl. 15 Grand Master";
-    //
-    //   testStylist.Update(newExpertise);
-    //
-    //   string resultExpertise = testStylist.GetExpertise();
-    //
-    //   Assert.Equal(newExpertise, resultExpertise);
-    // }
-    //
+    [Fact]
+    public void T6_Update_UpdatesAuthorInDB()
+    {
+      Author testAuthor = new Author("Rowling");
+      testAuthor.Save();
+
+      string newName = "Franzen";
+
+      testAuthor.Update(newName);
+
+      string resultName = testAuthor.GetName();
+
+      Assert.Equal(newName, resultName);
+    }
     // [Fact]
     // public void T7_Delete_DeletesStylistFromDB()
     // {
