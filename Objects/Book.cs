@@ -170,6 +170,42 @@ namespace Library
       }
     }
 
+    public static List<Book> SearchTitle(string searchInput)
+    {
+      SqlConnection connection = DB.Connection();
+      connection.Open();
+
+      SqlCommand command = new SqlCommand("SELECT * FROM books WHERE title = @SearchInput;", connection);
+      SqlParameter searchParameter = new SqlParameter();
+      searchParameter.ParameterName = "@SearchInput";
+      searchParameter.Value = searchInput;
+      command.Parameters.Add(searchParameter);
+
+      SqlDataReader reader = command.ExecuteReader();
+
+      int foundId = 0;
+      string foundTitle = null;
+      List<Book> foundBooks = new List<Book> {};
+
+      while(reader.Read())
+      {
+        foundId = reader.GetInt32(0);
+        foundTitle = reader.GetString(1);
+        Book foundBook = new Book(foundTitle, foundId);
+        foundBooks.Add(foundBook);
+      }
+
+      if (reader != null)
+      {
+        reader.Close();
+      }
+      if (connection != null)
+      {
+        connection.Close();
+      }
+      return foundBooks;
+    }
+
     public void Delete()
     {
       SqlConnection conn = DB.Connection();

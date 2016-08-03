@@ -100,5 +100,20 @@ namespace Library
       Assert.Equal(testBooks, result);
     }
 
+    [Fact]
+    public void T8_Search_SearchForBookByTitle()
+    {
+      Book testBook1 = new Book("Harry Potter and the Deathly Hallows");
+      testBook1.Save();
+      Book testBook2 = new Book("Freedom");
+      testBook2.Save();
+      Book testBook3 = new Book("James and the Giant Peach");
+      testBook3.Save();
+
+      List<Book> result = Book.SearchTitle("Freedom");
+      List<Book> testBooks = new List<Book> {testBook2};
+
+      Assert.Equal(testBooks, result);
+    }
   }
 }
