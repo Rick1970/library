@@ -85,22 +85,22 @@ namespace Library
 
       Assert.Equal(newName, resultName);
     }
-    // [Fact]
-    // public void T7_Delete_DeletesStylistFromDB()
-    // {
-    //   //Always remember to save to DB (Save())
-    //   Stylist testStylist1 = new Stylist("Clementine", "Clips", "L.4 Specialist");
-    //   testStylist1.Save();
-    //   Stylist testStylist2 = new Stylist("Jake", "Shears", "L.5 Master");
-    //   testStylist2.Save();
-    //
-    //   testStylist1.Delete();
-    //
-    //   List<Stylist> result = Stylist.GetAll();
-    //   List<Stylist> testStylists = new List<Stylist> {testStylist2};
-    //
-    //   Assert.Equal(testStylists, result);
-    // }
+    [Fact]
+    public void T7_Delete_DeletesAuthorFromDB()
+    {
+      //Always remember to save to DB (Save())
+      Author testAuthor1 = new Author("Rowling");
+      testAuthor1.Save();
+      Author testAuthor2 = new Author("Franzen");
+      testAuthor2.Save();
+
+      testAuthor1.Delete();
+
+      List<Author> result = Author.GetAll();
+      List<Author> testAuthors = new List<Author> {testAuthor2};
+
+      Assert.Equal(testAuthors, result);
+    }
     //
     // [Fact]
     // public void T8_GetClients_RetrievesAllClientsOfStylist()
