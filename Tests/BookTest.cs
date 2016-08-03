@@ -32,6 +32,7 @@ namespace Library
     public void Dispose()
     {
       Book.DeleteAll();
+      Author.DeleteAll();
     }
 
     [Fact]
@@ -101,19 +102,57 @@ namespace Library
     }
 
     [Fact]
-    public void T8_Search_SearchForBookByTitle()
+    public void T8_AddAuthor_Adds1AuthorToBook()
     {
-      Book testBook1 = new Book("Harry Potter and the Deathly Hallows");
-      testBook1.Save();
-      Book testBook2 = new Book("Freedom");
-      testBook2.Save();
-      Book testBook3 = new Book("James and the Giant Peach");
-      testBook3.Save();
+      Book testBook = new Book("Freedom");
+      testBook.Save();
 
-      List<Book> result = Book.SearchTitle("Freedom");
-      List<Book> testBooks = new List<Book> {testBook2};
+      Author testAuthor = new Author("Franzen");
+      testAuthor.Save();
 
-      Assert.Equal(testBooks, result);
+      testBook.AddAuthor(testAuthor);
+      List<Author> result = testBook.GetAuthors();
+      List<Author> testList = new List<Author> {testAuthor};
+
+      Assert.Equal(testList, result);
     }
+
+    [Fact]
+    public void T9_GetAuthors_ReturnsAllBookAuthors()
+    {
+      Book testBook = new Book("Freedom");
+      testBook.Save();
+
+      Author testAuthor1 = new Author("Franzen");
+      testAuthor1.Save();
+
+      Author testAuthor2 = new Author("Oprah");
+      testAuthor2.Save();
+
+      testBook.AddAuthor(testAuthor1);
+      List<Author> result = testBook.GetAuthors();
+      List<Author> testList= new List<Author>{testAuthor1};
+
+      Assert.Equal(testList,result);
+    }
+
+    // [Fact]
+    // public void T9_Search_SearchForBookByTitle()
+    // {
+    //   Author testAuthor = new Author("Franzen");
+    //   testAuthor.Save();
+    //
+    //   Book testBook1 = new Book("Harry Potter and the Deathly Hallows");
+    //   testBook1.Save();
+    //   Book testBook2 = new Book("Freedom");
+    //   testBook2.Save();
+    //   Book testBook3 = new Book("James and the Giant Peach");
+    //   testBook3.Save();
+    //
+    //   List<Book> result = Book.Search("Freedom");
+    //   List<Book> testBooks = new List<Book> {testBook2};
+    //
+    //   Assert.Equal(testBooks, result);
+    // }
   }
 }

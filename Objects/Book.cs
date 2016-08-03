@@ -170,16 +170,78 @@ namespace Library
       }
     }
 
-    public static List<Book> SearchTitle(string searchInput)
+    public void AddAuthor(Author newAuthor)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO books_authors (author_id, book_id) VALUES (@AuthorId, @BookId);", conn);
+
+      SqlParameter authorIdParameter = new SqlParameter();
+      authorIdParameter.ParameterName = "@AuthorId";
+      authorIdParameter.Value = newAuthor.GetId();
+      cmd.Parameters.Add(authorIdParameter);
+
+      SqlParameter bookIdParameter = new SqlParameter();
+      bookIdParameter.ParameterName = "@BookId";
+      bookIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(bookIdParameter);
+
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public List<Author> GetAuthors()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT authors.* FROM books JOIN books_authors ON (books.id = books_authors.book_id) JOIN authors ON (books_authors.author_id = authors.id) WHERE books.id = @BookId",conn);
+
+      SqlParameter bookIdParameter = new SqlParameter();
+      bookIdParameter.ParameterName= "@BookId";
+      bookIdParameter.Value=this.GetId();
+      cmd.Parameters.Add(bookIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+      List<Author> authors = new List<Author> {};
+
+      while(rdr.Read())
+      {
+        int authorId = rdr.GetInt32(0);
+        string authorName = rdr.GetString(1);
+        Author newAuthor = new Author(authorName, authorId);
+        authors.Add(newAuthor);
+      }
+
+      if(rdr !=null)
+      {
+        rdr.Close();
+      }
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return authors;
+    }
+
+    public static List<Book> Search(string searchInput)
     {
       SqlConnection connection = DB.Connection();
       connection.Open();
 
-      SqlCommand command = new SqlCommand("SELECT * FROM books WHERE title = @SearchInput;", connection);
+      SqlCommand command = new SqlCommand("SELECT books.* FROM authors JOIN books_authors ON (authors.id = books_authors.author_id) JOIN books ON (books_authors.book_id = books.id) WHERE authors.name = @SearchInput OR books.title = @SearchInput;", connection);
       SqlParameter searchParameter = new SqlParameter();
       searchParameter.ParameterName = "@SearchInput";
       searchParameter.Value = searchInput;
       command.Parameters.Add(searchParameter);
+
+      Console.WriteLine(searchInput);
 
       SqlDataReader reader = command.ExecuteReader();
 
@@ -194,6 +256,8 @@ namespace Library
         Book foundBook = new Book(foundTitle, foundId);
         foundBooks.Add(foundBook);
       }
+
+      Console.WriteLine(foundBooks[0]);
 
       if (reader != null)
       {
