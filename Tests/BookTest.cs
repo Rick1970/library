@@ -69,6 +69,20 @@ namespace Library
 
       Assert.Equal(testBook, foundBook);
     }
+    [Fact]
+    public void T6_Update_UpdatesBookInDB()
+    {
+      Book testBook = new Book("Harry Potter and the Deathly Hallows");
+      testBook.Save();
+
+      string newTitle = "Freedom";
+
+      testBook.Update(newTitle);
+
+      string resultTitle = testBook.GetTitle();
+
+      Assert.Equal(newTitle, resultTitle);
+    }
 
   }
 }
