@@ -15,52 +15,36 @@ namespace Library
       _name = Name;
     }
 
-    // public override bool Equals(System.Object otherClient)
-    // {
-    //   if (!(otherClient is Client))
-    //   {
-    //     return false;
-    //   }
-    //   else
-    //   {
-    //     Client newClient = (Client) otherClient;
-    //     bool idEquality = this.GetId() == newClient.GetId();
-    //     bool firstNameEquality = this.GetFirstName() == newClient.GetFirstName();
-    //     bool lastNameEquality = this.GetLastName() == newClient.GetLastName();
-    //     bool stylistIdEquality = this.GetStylistId() == newClient.GetStylistId();
-    //
-    //     return (idEquality && firstNameEquality && lastNameEquality && stylistIdEquality);
-    //   }
-    // }
-    //
-    // public int GetId()
-    // {
-    //   return _id;
-    // }
-    //
-    // public string GetFirstName()
-    // {
-    //   return _firstName;
-    // }
-    // public void SetFirstName(string newFirst)
-    // {
-    //   _firstName = newFirst;
-    // }
-    //
-    // public string GetLastName()
-    // {
-    //   return _lastName;
-    // }
-    // public void SetLastName(string newLast)
-    // {
-    //   _lastName = newLast;
-    // }
-    //
-    // public int GetStylistId()
-    // {
-    //   return _stylistId;
-    // }
-    //
+    public override bool Equals(System.Object otherAuthor)
+    {
+      if (!(otherAuthor is Author))
+      {
+        return false;
+      }
+      else
+      {
+        Author newAuthor = (Author) otherAuthor;
+        bool idEquality = this.GetId() == newAuthor.GetId();
+        bool NameEquality = this.GetName() == newAuthor.GetName();
+
+        return (idEquality && NameEquality);
+      }
+    }
+
+    public int GetId()
+    {
+      return _id;
+    }
+
+    public string GetName()
+    {
+      return _name;
+    }
+    public void SetName(string newName)
+    {
+      _name = newName;
+    }
+  
     public static List<Author> GetAll()
     {
       List<Author> allAuthors = new List<Author>{};
