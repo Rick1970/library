@@ -84,5 +84,21 @@ namespace Library
       Assert.Equal(newTitle, resultTitle);
     }
 
+    [Fact]
+    public void T7_Delete_DeletesBookFromDB()
+    {
+      Book testBook1 = new Book("Harry Potter and the Deathly Hallows");
+      testBook1.Save();
+      Book testBook2 = new Book("Freedom");
+      testBook2.Save();
+
+      testBook1.Delete();
+
+      List<Book> result = Book.GetAll();
+      List<Book> testBooks = new List<Book> {testBook2};
+
+      Assert.Equal(testBooks, result);
+    }
+
   }
 }
