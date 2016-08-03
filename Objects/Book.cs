@@ -101,6 +101,40 @@ namespace Library
       return allBooks;
     }
 
+    public static Book Find(int id)
+    {
+      SqlConnection connection = DB.Connection();
+      connection.Open();
+
+      SqlCommand command = new SqlCommand("SELECT * FROM books WHERE id = @BookId;", connection);
+      SqlParameter idParameter = new SqlParameter();
+      idParameter.ParameterName = "@BookId";
+      idParameter.Value = id.ToString();
+      command.Parameters.Add(idParameter);
+
+      SqlDataReader reader = command.ExecuteReader();
+
+      int foundId = 0;
+      string foundTitle = null;
+
+      while(reader.Read())
+      {
+        foundId = reader.GetInt32(0);
+        foundTitle = reader.GetString(1);
+      }
+      Book foundBook = new Book(foundTitle, foundId);
+
+      if (reader != null)
+      {
+        reader.Close();
+      }
+      if (connection != null)
+      {
+        connection.Close();
+      }
+      return foundBook;
+    }
+
     public static void DeleteAll()
     {
       SqlConnection connection = DB.Connection();

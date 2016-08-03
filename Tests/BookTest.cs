@@ -33,16 +33,42 @@ namespace Library
     {
       Book.DeleteAll();
     }
+
     [Fact]
-   public void T3_Save_SavesToDatabase()
-   {
+    public void T3_Save_SavesToDatabase()
+    {
 
-     Book testBook = new Book("Harry Potter and the Deathly Hallows");
-     testBook.Save();
-     List<Book> result =Book.GetAll();
-     List<Book> testList = new List<Book>{testBook};
+      Book testBook = new Book("Harry Potter and the Deathly Hallows");
+      testBook.Save();
+      List<Book> result =Book.GetAll();
+      List<Book> testList = new List<Book>{testBook};
 
-     Assert.Equal(testList, result);
-   }
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void T4_Save_AssignsIdToObject()
+    {
+      Book testBook = new Book("Harry Potter and the Deathly Hallows");
+      testBook.Save();
+
+      Book savedBook = Book.GetAll()[0];
+      int result = savedBook.GetId();
+      int testId = testBook.GetId();
+
+      Assert.Equal(testId,result);
+    }
+
+    [Fact]
+    public void T5_Find_FindsBookInDatabase()
+    {
+      Book testBook = new Book("Harry Potter and the Deathly Hallows");
+      testBook.Save();
+
+      Book foundBook = Book.Find(testBook.GetId());
+
+      Assert.Equal(testBook, foundBook);
+    }
+
   }
 }
