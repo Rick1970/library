@@ -101,6 +101,43 @@ namespace Library
 
       Assert.Equal(testAuthors, result);
     }
+
+    [Fact]
+    public void T8_AddBook_AddsBookToAuthor()
+    {
+      Book testBook = new Book("Freedom");
+      testBook.Save();
+
+      Author testAuthor = new Author("Franzen");
+      testAuthor.Save();
+
+      testAuthor.AddBook(testBook);
+      List<Book> result = testAuthor.GetBooks();
+      List<Book> testList = new List<Book> {testBook};
+
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void T9_GetBooks_ReturnsAllAuthorBooks()
+    {
+      Author testAuthor = new Author("Franzen");
+      testAuthor.Save();
+
+      Book testBook1 = new Book("Harry Potter");
+      testBook1.Save();
+
+      Book testBook2 = new Book("Freedom");
+      testBook2.Save();
+
+      testAuthor.AddBook(testBook1);
+      List<Book> result = testAuthor.GetBooks();
+      List<Book> testList= new List<Book>{testBook1};
+
+      Assert.Equal(testList,result);
+    }
+
+
     //
     // [Fact]
     // public void T8_GetClients_RetrievesAllClientsOfStylist()
