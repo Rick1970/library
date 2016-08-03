@@ -44,7 +44,7 @@ namespace Library
     {
       _name = newName;
     }
-  
+
     public static List<Author> GetAll()
     {
       List<Author> allAuthors = new List<Author>{};
@@ -73,45 +73,35 @@ namespace Library
       }
       return allAuthors;
     }
-    //
-    // public void Save()
-    // {
-    //   SqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //
-    //   SqlCommand cmd = new SqlCommand("INSERT INTO clients (first_name, last_name, stylist_id) OUTPUT INSERTED.id VALUES (@ClientFirst, @ClientLast, @ClientStylistId);", conn);
-    //
-    //   SqlParameter firstNameParameter = new SqlParameter();
-    //   firstNameParameter.ParameterName = "@ClientFirst";
-    //   firstNameParameter.Value = this.GetFirstName();
-    //
-    //   SqlParameter lastNameParameter = new SqlParameter();
-    //   lastNameParameter.ParameterName = "@ClientLast";
-    //   lastNameParameter.Value = this.GetLastName();
-    //
-    //   SqlParameter clientStylistIdParameter = new SqlParameter();
-    //   clientStylistIdParameter.ParameterName = "@ClientStylistId";
-    //   clientStylistIdParameter.Value = this.GetStylistId();
-    //
-    //   cmd.Parameters.Add(firstNameParameter);
-    //   cmd.Parameters.Add(lastNameParameter);
-    //   cmd.Parameters.Add(clientStylistIdParameter);
-    //
-    //   SqlDataReader rdr = cmd.ExecuteReader();
-    //
-    //   while (rdr.Read())
-    //   {
-    //     this._id = rdr.GetInt32(0);
-    //   }
-    //   if (rdr != null)
-    //   {
-    //     rdr.Close();
-    //   }
-    //   if (conn != null)
-    //   {
-    //     conn.Close();
-    //   }
-    // }
+
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO authors (name) OUTPUT INSERTED.id VALUES (@AuthorName);", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@AuthorName";
+      nameParameter.Value = this.GetName();
+
+      cmd.Parameters.Add(nameParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while (rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
     //
     // public static Client Find(int id)
     // {
@@ -184,7 +174,7 @@ namespace Library
     //
     //   while (rdr.Read())
     //   {
-    //     this._firstName = rdr.GetString(1);
+    //     this._name = rdr.GetString(1);
     //     this._lastName = rdr.GetString(2);
     //     this._stylistId = rdr.GetInt32(3);
     //   }

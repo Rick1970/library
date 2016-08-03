@@ -35,17 +35,17 @@ namespace Library
       Assert.Equal(firstAuthor, secondAuthor);
     }
 
-    // [Fact]
-    // public void T3_Save_SavesToDB()
-    // {
-    //   Stylist testStylist = new Stylist("Clementine", "Clips", "L.4 Specialist");
-    //   testStylist.Save();
-    //
-    //   List<Stylist> result = Stylist.GetAll();
-    //   List<Stylist> testList = new List<Stylist>{testStylist};
-    //
-    //   Assert.Equal(testList, result);
-    // }
+    [Fact]
+    public void T3_Save_SavesToDB()
+    {
+      Author testAuthor = new Author("Rowling");
+      testAuthor.Save();
+
+      List<Author> result = Author.GetAll();
+      List<Author> testList = new List<Author>{testAuthor};
+
+      Assert.Equal(testList, result);
+    }
     //
     // [Fact]
     // public void T4_1_Save_AssignsIdToStylist()
