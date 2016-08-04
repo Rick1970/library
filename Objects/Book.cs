@@ -248,7 +248,7 @@ namespace Library
       SqlConnection connection = DB.Connection();
       connection.Open();
 
-      SqlCommand command = new SqlCommand("SELECT * FROM books WHERE title = @SearchInput;", connection);
+      SqlCommand command = new SqlCommand("SELECT * FROM books WHERE title LIKE '%' + @SearchInput + '%';", connection);
       SqlParameter searchParameter = new SqlParameter();
       searchParameter.ParameterName = "@SearchInput";
       searchParameter.Value = searchInput;
@@ -284,7 +284,7 @@ namespace Library
       SqlConnection connection = DB.Connection();
       connection.Open();
 
-      SqlCommand command = new SqlCommand("SELECT books.* FROM authors JOIN books_authors ON (authors.id = books_authors.author_id) JOIN books ON (books_authors.book_id = books.id) WHERE authors.name = @SearchInput;", connection);
+      SqlCommand command = new SqlCommand("SELECT books.* FROM authors JOIN books_authors ON (authors.id = books_authors.author_id) JOIN books ON (books_authors.book_id = books.id) WHERE authors.name LIKE '%' + @SearchInput + '%';", connection);
 
       SqlParameter searchParameter = new SqlParameter();
       searchParameter.ParameterName = "@SearchInput";

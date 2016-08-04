@@ -1,0 +1,29 @@
+<form class="" action="/results" method="post">
+  <label for="search-input">Search field:</label>
+  <input type="text" name="search-input" value="">
+  <button type="submit" name="button">Search</button>
+</form>
+
+@if (Model["booksByTitle"].Count == 0)
+{
+  <h3> </h3>
+}
+else
+{
+  @foreach(var book in Model["booksByTitle"])
+  {
+    <h3>@book.GetTitle()</h3>
+  }
+}
+
+@if (Model["booksByAuthor"].Count == 0)
+{
+  <h3> </h3>
+}
+else
+{
+  @foreach(var book in Model["booksByAuthor"])
+  {
+    <h3>@book.GetTitle()</h3>
+  }
+}

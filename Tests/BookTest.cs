@@ -211,5 +211,32 @@ namespace Library
 
       Assert.Equal(testBooks, result);
     }
+
+    [Fact]
+    public void T13_SearchByAuthor_SearchForBookByAuthor()
+    {
+      Author testAuthor1 = new Author("Franzen");
+      testAuthor1.Save();
+      Author testAuthor2 = new Author("J. K. Rowling");
+      testAuthor2.Save();
+      Author testAuthor3 = new Author("Fred Rowling Jr.");
+      testAuthor3.Save();
+
+      Book testBook1 = new Book("Freedom");
+      testBook1.Save();
+      Book testBook2 = new Book("Harry Potter and the Deathly Hallows");
+      testBook2.Save();
+      Book testBook3 = new Book("How to Make Pizza");
+      testBook3.Save();
+
+      testBook1.AddAuthor(testAuthor1);
+      testBook2.AddAuthor(testAuthor2);
+      testBook3.AddAuthor(testAuthor3);
+
+      List<Book> result = Book.SearchByAuthor("Rowling");
+      List<Book> testBooks = new List<Book> {testBook2, testBook3};
+
+      Assert.Equal(testBooks, result);
+    }
   }
 }
