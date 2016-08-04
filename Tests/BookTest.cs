@@ -165,23 +165,43 @@ namespace Library
       Assert.Equal(1, result);
     }
 
+    [Fact]
+    public void T11_SearchByTitle_SearchForBookByTitle()
+    {
+      Book testBook1 = new Book("Harry Potter and the Deathly Hallows");
+      testBook1.Save();
+      Book testBook2 = new Book("Freedom");
+      testBook2.Save();
+      Book testBook3 = new Book("James and the Giant Peach");
+      testBook3.Save();
+
+      List<Book> result = Book.SearchByTitle("Freedom");
+      List<Book> testBooks = new List<Book> {testBook2};
+      // Console.WriteLine(result[0].GetTitle());
+      // Console.WriteLine(testBooks[0].GetTitle());
+
+      Assert.Equal(testBooks, result);
+    }
+
     // [Fact]
-    // public void T9_Search_SearchForBookByTitle()
+    // public void T11_AddExistingAuthor()
     // {
-    //   Author testAuthor = new Author("Franzen");
-    //   testAuthor.Save();
+    //   Author testAuthor1 = new Author("Franzen");
+    //   testAuthor1.Save();
+    //   Author testAuthor2 = new Author("Franzen");
+    //   testAuthor2.Save();
     //
-    //   Book testBook1 = new Book("Harry Potter and the Deathly Hallows");
-    //   testBook1.Save();
-    //   Book testBook2 = new Book("Freedom");
+    //   Book testBook = new Book("Freedom");
+    //   testBook.Save();
+    //   Book testBook2 = new Book("Example");
     //   testBook2.Save();
-    //   Book testBook3 = new Book("James and the Giant Peach");
-    //   testBook3.Save();
     //
-    //   List<Book> result = Book.Search("Freedom");
-    //   List<Book> testBooks = new List<Book> {testBook2};
+    //   testBook.AddAuthor(testAuthor2);
     //
-    //   Assert.Equal(testBooks, result);
+    //   List<Author> result = testBook.GetAuthors();
+    //
+    //   Assert.Equal(testAuthor1, result[0]);
     // }
+
   }
 }
