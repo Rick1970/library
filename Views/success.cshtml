@@ -1,0 +1,9 @@
+@if (Model.Count == 0)
+{
+  <h3>Nothing added!</h3>
+}
+else
+{
+  <h3>@Model["addedBook"].GetTitle()</h3>
+  <h3>@Model["addedAuthor"].GetName()</h3>
+}
