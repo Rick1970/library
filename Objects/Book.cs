@@ -170,29 +170,45 @@ namespace Library
       }
     }
 
-    public void AddAuthor(Author newAuthor)
+    public void AddAuthor(Author addedAuthor)
     {
-      SqlConnection conn = DB.Connection();
-      conn.Open();
+      // List<Author> allAuthors = Author.GetAll();
+      // int existingId = addedAuthor.GetId();
+      //
+      // foreach (var author in allAuthors)
+      // {
+      //   if (addedAuthor.GetName() == author.GetName())
+      //   {
+      //     int counter = 0;
+      //     existingId = author.GetId();
+      //     counter++;
+      //     if (counter > 0)
+      //     {
+      //       addedAuthor.Delete();
+      //     }
+      //   }
+        SqlConnection conn = DB.Connection();
+        conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO books_authors (author_id, book_id) VALUES (@AuthorId, @BookId);", conn);
+        SqlCommand cmd = new SqlCommand("INSERT INTO books_authors (author_id, book_id) VALUES (@AuthorId, @BookId);", conn);
 
-      SqlParameter authorIdParameter = new SqlParameter();
-      authorIdParameter.ParameterName = "@AuthorId";
-      authorIdParameter.Value = newAuthor.GetId();
-      cmd.Parameters.Add(authorIdParameter);
+        SqlParameter authorIdParameter = new SqlParameter();
+        authorIdParameter.ParameterName = "@AuthorId";
+        authorIdParameter.Value = addedAuthor.GetId();
+        cmd.Parameters.Add(authorIdParameter);
 
-      SqlParameter bookIdParameter = new SqlParameter();
-      bookIdParameter.ParameterName = "@BookId";
-      bookIdParameter.Value = this.GetId();
-      cmd.Parameters.Add(bookIdParameter);
+        SqlParameter bookIdParameter = new SqlParameter();
+        bookIdParameter.ParameterName = "@BookId";
+        bookIdParameter.Value = this.GetId();
+        cmd.Parameters.Add(bookIdParameter);
 
-      cmd.ExecuteNonQuery();
+        cmd.ExecuteNonQuery();
 
-      if (conn != null)
-      {
-        conn.Close();
-      }
+        if (conn != null)
+        {
+          conn.Close();
+        }
+      // }
     }
 
     public List<Author> GetAuthors()

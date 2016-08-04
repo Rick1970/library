@@ -129,12 +129,37 @@ namespace Library
       Author testAuthor2 = new Author("Oprah");
       testAuthor2.Save();
 
+      Author testAuthor3 = new Author("Franco");
+      testAuthor3.Save();
+
       testBook.AddAuthor(testAuthor1);
+
       List<Author> result = testBook.GetAuthors();
       List<Author> testList= new List<Author>{testAuthor1};
 
       Assert.Equal(testList,result);
     }
+
+    // [Fact]
+    // public void T10_AddExistingAuthor()
+    // {
+    //   Author testAuthor1 = new Author("Franzen");
+    //   testAuthor1.Save();
+    //   Author testAuthor2 = new Author("Franzen");
+    //   testAuthor2.Save();
+    //
+    //   Book testBook = new Book("Freedom");
+    //   testBook.Save();
+    //   Book testBook2 = new Book("Example");
+    //   testBook2.Save();
+    //
+    //   testBook.AddAuthor(testAuthor1);
+    //   testBook2.AddAuthor(testAuthor2);
+    //
+    //   int result = Author.GetAll().Count;
+    //
+    //   Assert.Equal(1, result);
+    // }
 
     // [Fact]
     // public void T9_Search_SearchForBookByTitle()
