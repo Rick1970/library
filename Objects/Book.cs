@@ -279,43 +279,42 @@ namespace Library
       return foundBooks;
     }
 
-    // public static List<Book> Search(string searchInput)
-    // {
-    //   SqlConnection connection = DB.Connection();
-    //   connection.Open();
-    //
-    //   SqlCommand command = new SqlCommand("SELECT books.* FROM authors JOIN books_authors ON (authors.id = books_authors.author_id) JOIN books ON (books_authors.book_id = books.id) WHERE books.title = @SearchInput;", connection);
-    //   SqlParameter searchParameter = new SqlParameter();
-    //   searchParameter.ParameterName = "@SearchInput";
-    //   searchParameter.Value = searchInput;
-    //   command.Parameters.Add(searchParameter);
-    //
-    //   Console.WriteLine(searchInput);
-    //
-    //   SqlDataReader reader = command.ExecuteReader();
-    //
-    //   int foundId = 0;
-    //   string foundTitle = null;
-    //   List<Book> foundBooks = new List<Book> {};
-    //
-    //   while(reader.Read())
-    //   {
-    //     foundId = reader.GetInt32(0);
-    //     foundTitle = reader.GetString(1);
-    //     Book foundBook = new Book(foundTitle, foundId);
-    //     foundBooks.Add(foundBook);
-    //   }
-    //
-    //   if (reader != null)
-    //   {
-    //     reader.Close();
-    //   }
-    //   if (connection != null)
-    //   {
-    //     connection.Close();
-    //   }
-    //   return foundBooks;
-    // }
+    public static List<Book> SearchByAuthor(string searchInput)
+    {
+      SqlConnection connection = DB.Connection();
+      connection.Open();
+
+      SqlCommand command = new SqlCommand("SELECT books.* FROM authors JOIN books_authors ON (authors.id = books_authors.author_id) JOIN books ON (books_authors.book_id = books.id) WHERE authors.name = @SearchInput;", connection);
+
+      SqlParameter searchParameter = new SqlParameter();
+      searchParameter.ParameterName = "@SearchInput";
+      searchParameter.Value = searchInput;
+      command.Parameters.Add(searchParameter);
+
+      SqlDataReader reader = command.ExecuteReader();
+
+      int foundId = 0;
+      string foundTitle = null;
+      List<Book> foundBooks = new List<Book> {};
+
+      while(reader.Read())
+      {
+        foundId = reader.GetInt32(0);
+        foundTitle = reader.GetString(1);
+        Book foundBook = new Book(foundTitle, foundId);
+        foundBooks.Add(foundBook);
+      }
+
+      if (reader != null)
+      {
+        reader.Close();
+      }
+      if (connection != null)
+      {
+        connection.Close();
+      }
+      return foundBooks;
+    }
 
     public void Delete()
     {
