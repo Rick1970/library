@@ -12,6 +12,13 @@ namespace Library
     {
       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=library_test;Integrated Security=SSPI;";
     }
+    public void Dispose()
+    {
+      Book.DeleteAll();
+      Author.DeleteAll();
+      Book.DeleteAllJoin();
+    }
+
 
     [Fact]
     public void T1_DatabaseEmptyAtFirst()
@@ -27,12 +34,6 @@ namespace Library
       Book firstBook = new Book("Harry Potter and the Deathly Hallows");
       Book secondBook = new Book("Harry Potter and the Deathly Hallows");
       Assert.Equal(firstBook, secondBook);
-    }
-
-    public void Dispose()
-    {
-      Book.DeleteAll();
-      Author.DeleteAll();
     }
 
     [Fact]
@@ -132,6 +133,9 @@ namespace Library
       Author testAuthor3 = new Author("Franco");
       testAuthor3.Save();
 
+      Author testAuthor4 = new Author("Oprahhhhh");
+      testAuthor4.Save();
+
       testBook.AddAuthor(testAuthor1);
 
       List<Author> result = testBook.GetAuthors();
@@ -140,26 +144,26 @@ namespace Library
       Assert.Equal(testList,result);
     }
 
-    // [Fact]
-    // public void T10_AddExistingAuthor()
-    // {
-    //   Author testAuthor1 = new Author("Franzen");
-    //   testAuthor1.Save();
-    //   Author testAuthor2 = new Author("Franzen");
-    //   testAuthor2.Save();
-    //
-    //   Book testBook = new Book("Freedom");
-    //   testBook.Save();
-    //   Book testBook2 = new Book("Example");
-    //   testBook2.Save();
-    //
-    //   testBook.AddAuthor(testAuthor1);
-    //   testBook2.AddAuthor(testAuthor2);
-    //
-    //   int result = Author.GetAll().Count;
-    //
-    //   Assert.Equal(1, result);
-    // }
+    [Fact]
+    public void T10_AddExistingAuthor()
+    {
+      Author testAuthor1 = new Author("Franzen");
+      testAuthor1.Save();
+      Author testAuthor2 = new Author("Franzen");
+      testAuthor2.Save();
+
+      Book testBook = new Book("Freedom");
+      testBook.Save();
+      Book testBook2 = new Book("Example");
+      testBook2.Save();
+
+      testBook.AddAuthor(testAuthor1);
+      testBook.AddAuthor(testAuthor2);
+
+      int result = testBook.GetAuthors().Count;
+
+      Assert.Equal(1, result);
+    }
 
     // [Fact]
     // public void T9_Search_SearchForBookByTitle()

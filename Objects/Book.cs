@@ -172,21 +172,17 @@ namespace Library
 
     public void AddAuthor(Author addedAuthor)
     {
-      // List<Author> allAuthors = Author.GetAll();
-      // int existingId = addedAuthor.GetId();
-      //
-      // foreach (var author in allAuthors)
-      // {
-      //   if (addedAuthor.GetName() == author.GetName())
-      //   {
-      //     int counter = 0;
-      //     existingId = author.GetId();
-      //     counter++;
-      //     if (counter > 0)
-      //     {
-      //       addedAuthor.Delete();
-      //     }
-      //   }
+      List<Author> bookAuthors = this.GetAuthors();
+      bool isDuplicate = false;
+      foreach (var author in bookAuthors)
+      {
+        if (addedAuthor.GetName() == author.GetName())
+        {
+          isDuplicate = true;
+        }
+      }
+      if (isDuplicate == false)
+      {
         SqlConnection conn = DB.Connection();
         conn.Open();
 
@@ -208,7 +204,7 @@ namespace Library
         {
           conn.Close();
         }
-      // }
+      }
     }
 
     public List<Author> GetAuthors()
@@ -220,7 +216,7 @@ namespace Library
 
       SqlParameter bookIdParameter = new SqlParameter();
       bookIdParameter.ParameterName= "@BookId";
-      bookIdParameter.Value=this.GetId();
+      bookIdParameter.Value = this.GetId().ToString();
       cmd.Parameters.Add(bookIdParameter);
 
       SqlDataReader rdr = cmd.ExecuteReader();
@@ -312,6 +308,15 @@ namespace Library
       SqlConnection connection = DB.Connection();
       connection.Open();
       SqlCommand command = new SqlCommand("DELETE FROM books;", connection);
+      command.ExecuteNonQuery();
+      connection.Close();
+    }
+
+    public static void DeleteAllJoin()
+    {
+      SqlConnection connection = DB.Connection();
+      connection.Open();
+      SqlCommand command = new SqlCommand("DELETE FROM books_authors;", connection);
       command.ExecuteNonQuery();
       connection.Close();
     }
