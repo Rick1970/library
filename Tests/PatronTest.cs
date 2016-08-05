@@ -17,6 +17,7 @@ namespace Library
       Patron.DeleteAll();
       Copy.DeleteAll();
       Book.DeleteAll();
+      Checkout.DeleteAll();
     }
 
     [Fact]

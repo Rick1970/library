@@ -17,6 +17,7 @@ namespace Library
       Patron.DeleteAll();
       Copy.DeleteAll();
       Book.DeleteAll();
+      Checkout.DeleteAll();
     }
 
     [Fact]
@@ -141,13 +142,6 @@ namespace Library
 
       Assert.Equal(testList,result);
     }
-    //
-    //
-    //
-    //
-    //
-    //
-
 
 
 
